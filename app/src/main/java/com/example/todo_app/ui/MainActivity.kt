@@ -25,6 +25,22 @@ class MainActivity : AppCompatActivity() {
 
         var list = db.todoDao().getAllRows()
         val todoAdapter = TODOAdapter(list as ArrayList<Todo>)
+        todoAdapter.listItemListener = object : ListItemListener {
+            override fun checkClicked(task: Todo, position: Int) {
+                task.status = !task.status
+                if (task.status) {
+                    db.todoDao().updateTaskTrue(task.id)
+                } else {
+                    db.todoDao().updateTaskFalse(task.id)
+                }
+                val newTasklist = db.todoDao().getAllRows() as ArrayList<Todo>
+                todoAdapter.updateTasks(newTasklist)
+            }
+
+            override fun deleteClicked(task: Todo, position: Int) {
+            }
+
+        }
         lvTODO.adapter = todoAdapter
 
 

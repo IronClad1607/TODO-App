@@ -13,4 +13,9 @@ interface TodoDao {
     @Query("SELECT * FROM todo")
     fun getAllRows() : List<Todo>
 
+    @Query("UPDATE todo SET isDone = 1 WHERE id = :id")
+    fun updateTaskTrue(id: Long?)
+
+    @Query("UPDATE todo SET isDone = 0 WHERE id = :id")
+    fun updateTaskFalse(id: Long?)
 }
