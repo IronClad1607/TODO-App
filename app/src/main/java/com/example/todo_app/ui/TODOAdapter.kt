@@ -43,9 +43,7 @@ class TODOAdapter(var tasks: ArrayList<Todo>) : BaseAdapter() {
 
     override fun getItem(p0: Int): Todo = tasks[p0]
 
-    override fun getItemId(p0: Int): Long {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    override fun getItemId(p0: Int): Long = 0
 
     override fun getCount() = tasks.size
 }

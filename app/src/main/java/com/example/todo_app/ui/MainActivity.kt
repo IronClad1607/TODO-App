@@ -10,36 +10,34 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
-    val db: AppDatabase by lazy {
-        Room.databaseBuilder(
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        val db = Room.databaseBuilder(
             this,
             AppDatabase::class.java,
             "todo.db"
         ).allowMainThreadQueries()
             .fallbackToDestructiveMigration()
             .build()
-    }
 
-    var list = db.TodoDao().getAllRows()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-
+        var list = db.todoDao().getAllRows()
         val todoAdapter = TODOAdapter(list as ArrayList<Todo>)
         lvTODO.adapter = todoAdapter
 
 
         btnADD.setOnClickListener {
-            db.TodoDao().insertRow(
+            db.todoDao().insertRow(
                 Todo(
-                task = etTask.text.toString(),
-                status = false
-            ))
+                    task = etTask.text.toString(),
+                    status = false
+                )
+            )
 
             etTask.text.clear()
-            list = db.TodoDao().getAllRows()
+            list = db.todoDao().getAllRows()
             todoAdapter.updateTasks(list as ArrayList<Todo>)
         }
     }

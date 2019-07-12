@@ -1,8 +1,10 @@
 package com.example.todo_app.database
 
+import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 
+@Dao
 interface TodoDao {
 
     @Insert
