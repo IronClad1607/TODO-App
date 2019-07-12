@@ -22,4 +22,10 @@ interface TodoDao {
 
     @Delete
     fun delete(todo: Todo)
+
+    @Query("SELECT * FROM todo ORDER BY isDone")
+    fun sort() : List<Todo>
+
+    @Query("DELETE FROM todo WHERE isDone = 1")
+    fun deleteDone()
 }
