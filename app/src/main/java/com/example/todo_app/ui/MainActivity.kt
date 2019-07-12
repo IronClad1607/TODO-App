@@ -38,6 +38,9 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun deleteClicked(task: Todo, position: Int) {
+                db.todoDao().delete(task)
+                val newTasklist = db.todoDao().getAllRows() as ArrayList<Todo>
+                todoAdapter.updateTasks(newTasklist)
             }
 
         }
