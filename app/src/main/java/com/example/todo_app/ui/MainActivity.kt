@@ -2,6 +2,9 @@ package com.example.todo_app.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import androidx.room.Room
 import com.example.todo_app.R
 import com.example.todo_app.database.AppDatabase
@@ -76,5 +79,24 @@ class MainActivity : AppCompatActivity() {
             todoAdapter.updateTasks(newTasklist)
 
         }
+
+        etSearch.addTextChangedListener(object : TextWatcher{
+            override fun afterTextChanged(p0: Editable?) {
+
+            }
+
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                val conString = "%$p0%"
+                val listTask = db.todoDao().search(conString) as ArrayList<Todo>
+                Log.d("search","$listTask")
+                todoAdapter.updateTasks(listTask)
+
+            }
+
+        })
+
     }
 }

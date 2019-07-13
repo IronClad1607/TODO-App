@@ -24,8 +24,11 @@ interface TodoDao {
     fun delete(todo: Todo)
 
     @Query("SELECT * FROM todo ORDER BY isDone")
-    fun sort() : List<Todo>
+    fun sort(): List<Todo>
 
     @Query("DELETE FROM todo WHERE isDone = 1")
     fun deleteDone()
+
+    @Query("SELECT * FROM todo WHERE task LIKE :searchString")
+    fun search(searchString: String): List<Todo>
 }
